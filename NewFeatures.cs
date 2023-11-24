@@ -288,4 +288,63 @@ public class PrimaryConstructor(IService service) : ControllerBase
         Console.WriteLine($"Hello, {name}");
     }
 
+    // 31. Params parameter in lamba functions
+    public void ParamsParameterInLambaFunctions()
+    {
+        Func<int, int, int> add = (params int[] args) => args.Sum();
+        Console.WriteLine(add(1, 2));
+    }
+
+    // 32. Extension GetEnumerator support for foreach loops
+    public void ExtensionGetEnumeratorSupportForForeachLoops()
+    {
+        foreach (var item in new MyEnumerable())
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+    // 33. Extension GetEnumerator support for await foreach loops
+    public async Task ExtensionGetEnumeratorSupportForAwaitForeachLoops()
+    {
+        await foreach (var item in new MyAsyncEnumerable())
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+    // 34. Extension GetEnumerator support for LINQ queries
+    public void ExtensionGetEnumeratorSupportForLINQQueries()
+    {
+        var query = from item in new MyEnumerable()
+                    select item;
+    }
+
+    // 35. Interceptors
+    static class Program
+    {
+        public static void Main()
+        {
+            HelloWord helloWord = new HelloWord();
+            helloWord.HelloWorld();
+            Console.ReadLine();
+        }
+    }
+
+    class HelloWord
+    {
+        public void HelloWorld() => Console.WriteLine("Hello World");
+    }
+
+    using System.Runtime.CompilerServices;
+
+    static class Interceptor
+{
+    [InterceptsLocation("C:\\Personal\\demonet8\\ConsoleApp1\\Program.cs", line: 15, character: 17)]
+    public static void InterceptorMethod(this HelloWord c)
+    {
+        c.HelloWorld();
+        Console.WriteLine("Hi!");
+    }
+}
 }
